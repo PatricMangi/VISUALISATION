@@ -46,7 +46,7 @@
     },
     {
       "mark": {"type": "circle"},
-      "data": {"url": "data/flights-airport.csv"},
+      "data": {"url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/data/weatherAUS.csv"},
       "transform": [
         {"aggregate": [{"op": "count", "as": "routes"}], "groupby": ["origin"]},
         {
