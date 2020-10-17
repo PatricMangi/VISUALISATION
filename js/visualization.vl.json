@@ -1,88 +1,37 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "description": "This dataset contains daily weather observations from numerous Australian weather stations.",
+  "width": 800,
+  "height": 500,
+  "title": "Earthquakes of magnitude 4 or large between 4 Oct 2020 and 10 Oct 2020",
+  "projection": {"type": "equalEarth"},
   "layer": [
     {
-      "mark": {
-        "type": "geoshape",
-        "fill": "#ddd",
-        "stroke": "#fff",
-        "strokeWidth": 1
-      },
       "data": {
-        "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/visualization.vl.json",
-        "format": {"type": "topojson", "feature": "states"}
-      }
-    },
-    {
-      "mark": {"type": "rule", "color": "#000", "opacity": 0.35},
-      "data": {"url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/visualization.vl.json"},
-      "transform": [
-        {"filter": {"selection": "single"}},
-        {
-          "lookup": "origin",
-          "from": {
-            "data": {"url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/visualization.vl.json"},
-            "key": "iata",
-            "fields": ["latitude", "longitude"]
-          }
-        },
-        {
-          "lookup": "destination",
-          "from": {
-            "data": {"url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/visualization.vl.json"},
-            "key": "iata",
-            "fields": ["latitude", "longitude"]
-          },
-          "as": ["lat2", "lon2"]
-        }
-      ],
-      "encoding": {
-        "latitude": {"field": "latitude"},
-        "longitude": {"field": "longitude"},
-        "latitude2": {"field": "lat2"},
-        "longitude2": {"field": "lon2"}
-      }
-    },
-    {
-      "mark": {"type": "circle"},
-      "data": {"url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/data/weatherAUS.csv"},
-      "transform": [
-        {"aggregate": [{"op": "count", "as": "routes"}], "groupby": ["origin"]},
-        {
-          "lookup": "origin",
-          "from": {
-            "data": {"url": "data/airports.csv"},
-            "key": "iata",
-            "fields": ["state", "latitude", "longitude"]
-          }
-        },
-        {"filter": "datum.state !== 'PR' && datum.state !== 'VI'"}
-      ],
-      "selection": {
-        "single": {
-          "type": "single",
-          "on": "mouseover",
-          "nearest": true,
-          "fields": ["origin"],
-          "empty": "none"
-        }
+        "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/Aus(top).json,
+        "format": {"type": "topojson", "feature": "Aus(top)"}
       },
+      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/data/weatherAUS.csv"
+      },
+      "mark": {"type": "circle", "tooltip": {"content": "data"}},
       "encoding": {
-        "latitude": {"field": "latitude"},
-        "longitude": {"field": "longitude"},
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
         "size": {
-          "field": "routes",
+          "field": "mag",
           "type": "quantitative",
-          "scale": {"rangeMax": 1000},
-          "legend": null
+          "scale": {"domain": [4, 8]}
         },
-        "order": {"field": "routes", "sort": "descending"}
+        "color": {
+          "field": "depth",
+          "type": "quantitative",
+          "scale": {"scheme": "reds"}
+        }
       }
     }
   ],
-  "projection": {"type": "albersUsa"},
-  "width": 900,
-  "height": 500,
-  "config": {"view": {"stroke": null}}
+  "config": {}
 }
