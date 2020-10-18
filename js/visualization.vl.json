@@ -17,7 +17,8 @@
           "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/data/percent_black_in_2018.csv"
         },
         "key": "State",
-        "fields": ["Percent Black"]
+        "fields": ["Percent Black"],
+        "scale": {"domain": [0, 50]
       }
     }
    
