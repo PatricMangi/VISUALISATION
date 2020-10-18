@@ -4,10 +4,10 @@
   "width": 800,
   "height": 600,
   "data": {
-    "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/america%20(1).topojson",
+    "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/20m-US-congressional-districts-2015.topojson",
     "format": {
           "type": "topojson",
-          "feature": "america%20(1)"
+          "feature": "20m-US-congressional-districts-2015"
         }
   },
   "transform": [{
