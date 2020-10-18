@@ -1,37 +1,42 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-  "width": 800,
-  "height": 500,
   "title": "Percentage of populations in the USA that identify as black (2018).",
-  "projection": {"type": "equalEarth"},
-  "layer": [
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/america%20(1).json",
-        "format": {"type": "topojson", "feature": "Aus(top)"}
-      },
-      "mark": {"type": "geoshape", "fill": "lightgray", "stroke": "white"}
-    },
-    {
-      "data": {
-        "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/data/percent_black_in_2018.csv"
-      },
-      "mark": {"type": "circle", "tooltip": {"content": "data"}},
-      "encoding": {
-        "longitude": {"field": "longitude", "type": "quantitative"},
-        "latitude": {"field": "latitude", "type": "quantitative"},
-        "size": {
-          "field": "mag",
-          "type": "quantitative",
-          "scale": {"domain": [4, 8]}
-        },
-        "color": {
-          "field": "depth",
-          "type": "quantitative",
-          "scale": {"scheme": "reds"}
+  "width": 800,
+  "height": 600,
+  "data": {
+    "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/america%20(1).topojson",
+    "format": {
+          "type": "topojson",
+          "feature": "america%20(1)"
         }
+  },
+  "transform": [{
+      "lookup": "objects.NAME",
+      "from": {
+        "data": {
+          "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/data/percent_black_in_2018.csv"
+        },
+        "key": "State",
+        "fields": ["Percent Black"]
       }
     }
+   
   ],
-  "config": {}
+
+ "projection": {
+    "type": "albersUsa"
+  },
+  "mark": "geoshape",
+  "encoding": {
+    "color": {
+      "field": "Percent Black",
+      "type": "quantitative"
+      
+    },
+    "tooltip": [
+      {"field": "objects.NAME", "type": "nominal", "title": "State"},
+      {"field": "Percent Black", "type": "quantitative"}
+    ]
+  }
+
 }
