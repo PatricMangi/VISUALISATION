@@ -1,23 +1,23 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "title": "Percentage of populations in the USA that identify as black (2018).",
-  "width": 800,
-  "height": 600,
+  "width": 600,
+  "height": 400,
   "data": {
-    "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/20m-US-congressional-districts-2015.topojson",
+    "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/js/ne_110m_admin_1_states_provinces.json",
     "format": {
           "type": "topojson",
-          "feature": "20m-US-congressional-districts-2015"
+          "feature": "ne_110m_admin_1_states_provinces"
         }
   },
   "transform": [{
-      "lookup": "objects.NAME",
+      "lookup": "properties.name_it",
       "from": {
         "data": {
           "url": "https://raw.githubusercontent.com/PatricMangi/week9HW/main/data/percent_black_in_2018.csv"
         },
         "key": "State",
-        "fields": ["Percent Black"],
+        "fields": ["Percent_Black"]
        
       }
     }
@@ -30,15 +30,12 @@
   "mark": "geoshape",
   "encoding": {
     "color": {
-      "field": "Percent Black",
+      "field": "Percent_Black",
       "type": "quantitative",
        "scale": {"domain": [0, 50]
       
-    },
-    "tooltip": [
-      {"field": "objects.NAME", "type": "nominal", "title": "State"},
-      {"field": "Percent Black", "type": "quantitative"}
-    ]
+    }
   }
 
+}
 }
